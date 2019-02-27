@@ -7,6 +7,26 @@ const textStyle = const TextStyle(
   fontFamily: 'AbrilFatface',
 );
 
+class MyIcons{
+  static const IconData book =const IconData(
+    0xe672,
+    fontFamily: 'myIcon',
+    matchTextDirection: true
+  );
+
+  static const IconData lockers =const IconData(
+    0xe670,
+    fontFamily:'myIcon',
+    matchTextDirection:true
+  );
+
+  static const IconData pom =const IconData(
+    0xe676,
+    fontFamily:'myIcon',
+    matchTextDirection:true
+  );
+}
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -61,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
-            FlatButton(
+            RaisedButton(
               child: Text("open new route"),
               textColor: Colors.blue,
               onPressed: () {
@@ -85,6 +105,49 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, "new_counter");
               },
             ),
+            IconButton(
+              icon: Icon(Icons.thumb_up),
+              onPressed: () => {},
+            ),
+            RaisedButton(
+              color: Colors.blue,
+              highlightColor: Colors.blue[700],
+              colorBrightness: Brightness.dark,
+              splashColor: Colors.grey,
+              child: Text("Submit"),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              onPressed: () => {},
+            ),
+            // Image(
+            //   image: AssetImage("images/Big_Bang1.png"),
+            //   width: 100.0,
+            //   color: Colors.blue,
+            //   colorBlendMode: BlendMode.difference,
+            // ),
+            // Image(
+            //   image: NetworkImage(
+            //       "https://avatars2.githubusercontent.com/u/20411648?s=460&v=4"),
+            //   width: 100.0,
+            //   color: Colors.blue,
+            //   colorBlendMode: BlendMode.difference,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     Icon(Icons.accessible,color:Colors.green,size:50),
+            //     Icon(Icons.error,color:Colors.green,size:50),
+            //     Icon(Icons.fingerprint,color:Colors.green,size:50),
+            //   ],
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(MyIcons.book,color:Colors.blue,size:50),
+                Icon(MyIcons.lockers,color:Colors.pink,size:50),
+                Icon(MyIcons.pom,color:Colors.redAccent,size:50),
+              ],
+            )
           ],
         ),
       ),
