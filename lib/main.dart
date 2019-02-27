@@ -7,24 +7,15 @@ const textStyle = const TextStyle(
   fontFamily: 'AbrilFatface',
 );
 
-class MyIcons{
-  static const IconData book =const IconData(
-    0xe672,
-    fontFamily: 'myIcon',
-    matchTextDirection: true
-  );
+class MyIcons {
+  static const IconData book =
+      const IconData(0xe672, fontFamily: 'myIcon', matchTextDirection: true);
 
-  static const IconData lockers =const IconData(
-    0xe670,
-    fontFamily:'myIcon',
-    matchTextDirection:true
-  );
+  static const IconData lockers =
+      const IconData(0xe670, fontFamily: 'myIcon', matchTextDirection: true);
 
-  static const IconData pom =const IconData(
-    0xe676,
-    fontFamily:'myIcon',
-    matchTextDirection:true
-  );
+  static const IconData pom =
+      const IconData(0xe676, fontFamily: 'myIcon', matchTextDirection: true);
 }
 
 void main() => runApp(MyApp());
@@ -40,6 +31,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "new_page": (context) => NewRoute(),
         "new_counter": (context) => NewCounter(),
+        "new_login": (context) => NewLogin(),
       },
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -107,7 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             IconButton(
               icon: Icon(Icons.thumb_up),
-              onPressed: () => {},
+              onPressed: () {
+                Navigator.pushNamed(context, "new_login");
+              },
             ),
             RaisedButton(
               color: Colors.blue,
@@ -143,9 +137,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(MyIcons.book,color:Colors.blue,size:50),
-                Icon(MyIcons.lockers,color:Colors.pink,size:50),
-                Icon(MyIcons.pom,color:Colors.redAccent,size:50),
+                Icon(MyIcons.book, color: Colors.blue, size: 50),
+                Icon(MyIcons.lockers, color: Colors.pink, size: 50),
+                Icon(MyIcons.pom, color: Colors.redAccent, size: 50),
               ],
             )
           ],
@@ -264,6 +258,7 @@ class NewCounter extends StatelessWidget {
                     inherit: false, //2.不继承默认样式
                     color: Colors.grey),
               ),
+              SwitchAndCheckBoxTestRoute(),
             ],
           ),
         ),
@@ -280,6 +275,72 @@ class NewCounter extends StatelessWidget {
     //         onPressed: () {}),
     //   ),
     // );
+  }
+}
+
+TextEditingController _unameController = new TextEditingController();
+
+//-------------------textField----------------------------
+class NewLogin extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Login"),
+        ),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              TextField(
+                // autofocus: true,
+                decoration: InputDecoration(
+                    labelText: "用户名",
+                    hintText: "用户名或邮箱",
+                    prefixIcon: Icon(Icons.person)),
+                controller: _unameController,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                    labelText: "密码",
+                    hintText: "您的登陆密码",
+                    prefixIcon: Icon(Icons.lock)),
+                obscureText: true,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.all(10.0),
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      highlightColor: Colors.blue[700],
+                      colorBrightness: Brightness.dark,
+                      splashColor: Colors.grey,
+                      child: Text("Cancle"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      onPressed: () => {},
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(10.0),
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      highlightColor: Colors.blue[700],
+                      colorBrightness: Brightness.dark,
+                      splashColor: Colors.grey,
+                      child: Text("Submit"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      onPressed: () => {},
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
 
@@ -534,6 +595,45 @@ class _TapBoxCState extends State<TapboxC> {
               : null,
         ),
       ),
+    );
+  }
+}
+
+//---------------------radio dingle and mutiple-----------------------------------
+class SwitchAndCheckBoxTestRoute extends StatefulWidget {
+  @override
+  _SwitchAndCheckBoxTestRouterState createState() =>
+      new _SwitchAndCheckBoxTestRouterState();
+}
+
+class _SwitchAndCheckBoxTestRouterState
+    extends State<SwitchAndCheckBoxTestRoute> {
+  bool _switchSelected = false;
+  bool _checkboxSelected = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Switch(
+          value: _switchSelected, //当前状态
+          onChanged: (value) {
+            //重新构建页面
+            setState(() {
+              _switchSelected = value;
+            });
+          },
+        ),
+        Checkbox(
+          value: _checkboxSelected,
+          activeColor: Colors.deepPurple, //选中时的颜色
+          onChanged: (value) {
+            setState(() {
+              _checkboxSelected = value;
+            });
+          },
+        ),
+      ],
     );
   }
 }
