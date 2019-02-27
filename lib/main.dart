@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:flutter/cupertino.dart';
+
+// 声明文本样式
+const textStyle = const TextStyle(
+  fontFamily: 'AbrilFatface',
+);
 
 void main() => runApp(MyApp());
 
@@ -96,14 +102,39 @@ class NewRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("New route"),
+        title: Text(
+          "New route0",
+          textAlign: TextAlign.center,
+        ),
       ),
       body: Center(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-            Text("This is new route"),
-            ParentWidgetC(),
+            Text(
+              "This is new route" * 6,
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 18.0,
+                height: 1.2,
+                fontFamily: "Courier",
+                background: new Paint()..color = Colors.yellow,
+                decoration: TextDecoration.underline,
+                decorationStyle: TextDecorationStyle.dashed,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text.rich(TextSpan(children: [
+              TextSpan(text: 'Home  '),
+              TextSpan(
+                text: 'https://flutterchina.club',
+                style: TextStyle(color: Colors.blue),
+                // recognizer: _tapRecognizer
+              )
+            ])),
+            TapboxA(),
           ])),
     );
   }
@@ -146,12 +177,46 @@ class NewCounter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("New route"),
+        title: Text("New route1"),
       ),
-      body: Center(
-        child: CounterWidget(),
-      ),
+      body: Column(children: <Widget>[
+        DefaultTextStyle(
+          //1.设置文本默认样式
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 20.0,
+          ),
+          textAlign: TextAlign.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Aa",
+                style: textStyle,
+              ),
+              Text("Aa"),
+              Text(
+                "I am Jack",
+                style: TextStyle(
+                    inherit: false, //2.不继承默认样式
+                    color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ]),
     );
+    // return CupertinoPageScaffold(
+    //   navigationBar: CupertinoNavigationBar(
+    //     middle: Text("Cupertino Demo"),
+    //   ),
+    //   child: Center(
+    //     child: CupertinoButton(
+    //         color: CupertinoColors.activeBlue,
+    //         child: Text("Press"),
+    //         onPressed: () {}),
+    //   ),
+    // );
   }
 }
 
@@ -249,8 +314,8 @@ class _TapboxAState extends State<TapboxA> {
             style: new TextStyle(fontSize: 32.0, color: Colors.white),
           ),
         ),
-        width: 100.0,
-        height: 100.0,
+        width: 200.0,
+        height: 200.0,
         decoration: new BoxDecoration(
           color: _active ? Colors.lightGreen[700] : Colors.grey[600],
         ),
@@ -390,19 +455,20 @@ class _TapBoxCState extends State<TapboxC> {
       child: new Container(
         child: new Center(
           child: new Text(
-            widget.active?'Active':'Inactive',
-            style: new TextStyle(fontSize: 32.0,color:Colors.white),
+            widget.active ? 'Active' : 'Inactive',
+            style: new TextStyle(fontSize: 32.0, color: Colors.white),
           ),
         ),
         width: 200.0,
         height: 200.0,
         decoration: new BoxDecoration(
-          color: widget.active?Colors.lightGreen[700]:Colors.grey[600],
-          border: _highlight?new Border.all(
-            color: Colors.teal[700],
-            width: 10.0,
-          )
-          :null,
+          color: widget.active ? Colors.lightGreen[700] : Colors.grey[600],
+          border: _highlight
+              ? new Border.all(
+                  color: Colors.teal[400],
+                  width: 10.0,
+                )
+              : null,
         ),
       ),
     );
